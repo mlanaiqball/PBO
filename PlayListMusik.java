@@ -1,5 +1,4 @@
 import java.util.*;
-import java.util.Scanner;
 
 // Kelas utama untuk sistem playlist musik
 class MusicPlaylist {
@@ -15,6 +14,7 @@ class MusicPlaylist {
     // Menambahkan lagu ke playlist
     public void addSong(String title, String artist, String genre) {
         songs.add(new Song(title, artist, genre));
+        System.out.println("Lagu berhasil ditambahkan!");
     }
 
     // Menghapus lagu dari playlist
@@ -25,12 +25,13 @@ class MusicPlaylist {
         }
         System.out.println("Menghapus lagu: " + songs.get(index).getInfo());
         songs.remove(index);
+        System.out.println("Lagu berhasil dihapus!");
     }
 
     // Menampilkan semua lagu dalam playlist
     public void displayPlaylist() {
         if (songs.isEmpty()) {
-            System.out.println("Playlist masih kosong!");
+            System.out.println("\n[Playlist Kosong! Tambahkan lagu terlebih dahulu.]");
             return;
         }
         System.out.println("\n=== Daftar Lagu dalam Playlist ===");
@@ -42,11 +43,23 @@ class MusicPlaylist {
     // Memutar lagu secara acak
     public void playRandomSong() {
         if (songs.isEmpty()) {
-            System.out.println("Playlist kosong, tambahkan lagu terlebih dahulu!");
+            System.out.println("\n[Playlist kosong, tambahkan lagu terlebih dahulu!]");
             return;
         }
         Song randomSong = songs.get(random.nextInt(songs.size()));
-        System.out.println("Memutar lagu: " + randomSong.getInfo());
+        System.out.println("\nMemutar lagu secara acak: " + randomSong.getInfo());
+    }
+    
+    // Memutar lagu berdasarkan urutan
+    public void playSequentially() {
+        if (songs.isEmpty()) {
+            System.out.println("\n[Playlist kosong, tambahkan lagu terlebih dahulu!]");
+            return;
+        }
+        System.out.println("\n=== Memutar Lagu Berdasarkan Urutan ===");
+        for (Song song : songs) {
+            System.out.println("Memutar: " + song.getInfo());
+        }
     }
 }
 
@@ -63,34 +76,22 @@ class Song {
         this.genre = genre;
     }
 
-    // Getter dan Setter
+    // Getter
     public String getTitle() {
         return title;
-    }
-
-    public void setTitle(String title) {
-        this.title = title;
     }
 
     public String getArtist() {
         return artist;
     }
 
-    public void setArtist(String artist) {
-        this.artist = artist;
-    }
-
     public String getGenre() {
         return genre;
     }
 
-    public void setGenre(String genre) {
-        this.genre = genre;
-    }
-
     // Mengembalikan informasi lagu
     public String getInfo() {
-        return title + " - " + artist + " [" + genre + "]";
+        return "\"" + title + "\" - " + artist + " [" + genre + "]";
     }
 }
 
@@ -105,9 +106,11 @@ public class Main {
             System.out.println("1. Tambah Lagu");
             System.out.println("2. Lihat Playlist");
             System.out.println("3. Putar Lagu Acak");
-            System.out.println("4. Hapus Lagu");
-            System.out.println("5. Keluar");
+            System.out.println("4. Putar Semua Lagu Berurutan");
+            System.out.println("5. Hapus Lagu");
+            System.out.println("6. Keluar");
             System.out.print("Pilih opsi: ");
+            
             int choice = scanner.nextInt();
             scanner.nextLine();
             
@@ -128,17 +131,20 @@ public class Main {
                     playlist.playRandomSong();
                     break;
                 case 4:
+                    playlist.playSequentially();
+                    break;
+                case 5:
                     playlist.displayPlaylist();
                     System.out.print("Masukkan nomor lagu yang ingin dihapus: ");
                     int index = scanner.nextInt() - 1;
                     scanner.nextLine();
                     playlist.deleteSong(index);
                     break;
-                case 5:
-                    System.out.println("Terima kasih telah menggunakan sistem playlist musik!");
+                case 6:
+                    System.out.println("\nTerima kasih telah menggunakan sistem playlist musik!");
                     return;
                 default:
-                    System.out.println("Pilihan tidak valid!");
+                    System.out.println("Pilihan tidak valid! Silakan coba lagi.");
             }
         }
     }
