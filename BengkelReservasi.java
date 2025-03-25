@@ -1,6 +1,7 @@
 import java.util.ArrayList;
 import java.util.Scanner;
 
+// Class Reservasi dengan penerapan Encapsulation
 class Reservasi {
     private String namaPelanggan;
     private String jenisKendaraan;
@@ -12,6 +13,7 @@ class Reservasi {
         this.tanggalReservasi = tanggalReservasi;
     }
 
+    // Getter dan Setter dengan akses modifier yang sesuai
     public String getNamaPelanggan() {
         return namaPelanggan;
     }
@@ -42,6 +44,7 @@ class Reservasi {
     }
 }
 
+// Class utama untuk mengelola reservasi
 public class BengkelReservasi {
     private static ArrayList<Reservasi> daftarReservasi = new ArrayList<>();
     private static Scanner scanner = new Scanner(System.in);
@@ -81,7 +84,8 @@ public class BengkelReservasi {
         }
     }
 
-    private static void tambahReservasi() {
+    // Method dengan access modifier protected
+    protected static void tambahReservasi() {
         System.out.print("Masukkan Nama Pelanggan: ");
         String nama = scanner.nextLine();
         System.out.print("Masukkan Jenis Kendaraan: ");
@@ -93,7 +97,8 @@ public class BengkelReservasi {
         System.out.println("Reservasi berhasil ditambahkan!");
     }
 
-    private static void tampilkanReservasi() {
+    // Method dengan access modifier public
+    public static void tampilkanReservasi() {
         if (daftarReservasi.isEmpty()) {
             System.out.println("Tidak ada reservasi.");
             return;
@@ -104,7 +109,7 @@ public class BengkelReservasi {
         }
     }
 
-    private static void ubahReservasi() {
+    protected static void ubahReservasi() {
         tampilkanReservasi();
         System.out.print("Pilih nomor reservasi yang akan diubah: ");
         int index = scanner.nextInt() - 1;
